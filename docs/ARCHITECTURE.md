@@ -1,8 +1,8 @@
-# JPEG Pot architecture
+# Lucky Commons architecture
 
 ## System objective
 
-JPEG Pot connects two user journeys without conflating their permissions:
+Lucky Commons connects two user journeys without conflating their permissions:
 
 - NFT holders can create chain-local pool positions.
 - Media buyers can purchase usage rights only from reviewed, licensable
@@ -65,13 +65,13 @@ entry point, and static-asset behavior.
 
 ### EVM token
 
-`contracts/JpegPotToken.sol` is an ERC-20 with burn and permit support. Its
+`contracts/LuckyCommonsToken.sol` is an ERC-20 with burn and permit support. Its
 constructor mints a fixed one-billion-token supply to the treasury argument.
 It is not currently wired into vault accounting or a cross-chain bridge.
 
 ### EVM vault
 
-`contracts/JpegPotVault.sol`:
+`contracts/LuckyCommonsVault.sol`:
 
 - Custodies ERC-721 and ERC-1155 assets.
 - Rejects unsolicited safe transfers.
@@ -87,7 +87,7 @@ must always be namespaced by chain ID and vault address offchain.
 
 ### EVM licensing
 
-`contracts/JpegPotLicensing.sol`:
+`contracts/LuckyCommonsLicensing.sol`:
 
 - Stores immutable package definitions plus an operator-controlled active flag.
 - Supports public-domain packages and depositor-attested packages.
@@ -103,7 +103,7 @@ namespaced by chain ID and contract address offchain.
 
 ### Solana program
 
-`programs/jpeg-pot-solana/src/lib.rs` implements analogous state with Program
+`programs/luckycommons-solana/src/lib.rs` implements analogous state with Program
 Derived Addresses:
 
 - Global config and vault authority PDAs.
@@ -202,7 +202,7 @@ wrangler.jsonc           Cloudflare deployment source of truth
 - No production rights-review backend.
 - No chain event indexer or dynamic catalog.
 - No operator CLI for package creation or Solana initialization.
-- No unified multichain `$POT` supply.
+- No unified multichain `$LUCK` supply.
 - No monitoring or alert integration beyond the health route.
 - No completed independent security or legal review.
 

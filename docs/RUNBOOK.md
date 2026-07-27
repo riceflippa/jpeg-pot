@@ -1,4 +1,4 @@
-# JPEG Pot operations runbook
+# Lucky Commons operations runbook
 
 This runbook covers the public preview and testnet components. It does not
 authorize mainnet contract deployment or live prize operation.
@@ -7,10 +7,10 @@ authorize mainnet contract deployment or live prize operation.
 
 | Surface | Identifier | Primary check |
 | --- | --- | --- |
-| Public application | `jpeg-pot.jpegpot.workers.dev` | Load home page and `/api/health` |
-| GitHub repository | `riceflippa/jpeg-pot` | `main` status and Actions history |
-| GitHub Pages | `riceflippa.github.io/jpeg-pot` | Load project overview and documentation links |
-| Cloudflare Worker | `jpeg-pot` | Active deployment and Worker logs |
+| Public application | `luckycommons.jpegpot.workers.dev` | Load home page and `/api/health` |
+| GitHub repository | `riceflippa/luckycommons` | `main` status and Actions history |
+| GitHub Pages | `riceflippa.github.io/luckycommons` | Load project overview and documentation links |
+| Cloudflare Worker | `luckycommons` | Active deployment and Worker logs |
 | EVM preview | Addresses in GitHub Actions variables | Explorer code, owner, paused state, and events |
 | Solana preview | Program ID in GitHub Actions variable | Cluster, executable account, authority, and logs |
 

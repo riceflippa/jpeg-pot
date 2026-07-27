@@ -9,14 +9,14 @@ const publicClient = await viem.getPublicClient();
 const termsURI = process.env.TERMS_URI ?? DEFAULT_TERMS_URI;
 const termsHash = TERMS_HASH;
 const cooldown = 7n * 24n * 60n * 60n;
-const token = await viem.deployContract("JpegPotToken", [deployer.account.address]);
-const vault = await viem.deployContract("JpegPotVault", [
+const token = await viem.deployContract("LuckyCommonsToken", [deployer.account.address]);
+const vault = await viem.deployContract("LuckyCommonsVault", [
   deployer.account.address,
   cooldown,
   termsHash,
   termsURI,
 ]);
-const licensing = await viem.deployContract("JpegPotLicensing", [
+const licensing = await viem.deployContract("LuckyCommonsLicensing", [
   deployer.account.address,
   vault.address,
 ]);

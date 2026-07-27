@@ -1,4 +1,4 @@
-# JPEG Pot protocol reference
+# Lucky Commons protocol reference
 
 This document describes the protocol implemented in the repository. It is not a
 claim that production contracts, active prizes, or verified licensing inventory
@@ -20,13 +20,13 @@ multiple networks.
 
 ## EVM contracts
 
-### `JpegPotToken`
+### `LuckyCommonsToken`
 
 Properties:
 
-- Name: `JPEG Pot`.
-- Symbol: `POT`.
-- Maximum and initial supply: `1,000,000,000 POT`.
+- Name: `Lucky Commons`.
+- Symbol: `LUCK`.
+- Maximum and initial supply: `1,000,000,000 LUCK`.
 - The full supply is minted once to the constructor's treasury address.
 - Holders can burn their own tokens.
 - ERC-2612 permit is supported.
@@ -36,7 +36,7 @@ The token is not currently referenced by the vault or licensing contract. A
 revenue allocation labeled for buy-and-burn only transfers native currency to
 an executor; swapping and burning remain separate actions.
 
-### `JpegPotVault`
+### `LuckyCommonsVault`
 
 The vault stores one `Position` for each deposit:
 
@@ -79,7 +79,7 @@ Anyone may deposit positive native value with a `sourceId`. Only the owner can
 allocate spendable revenue, and every allocation records a recipient, amount,
 and `purposeId`. The contract does not enforce the meaning of a purpose hash.
 
-### `JpegPotLicensing`
+### `LuckyCommonsLicensing`
 
 A `LicensePackage` stores:
 
@@ -177,30 +177,30 @@ License payments settle in the source chain's native asset:
 Revenue can be allocated to a prize winner, member distributor, reserve, or
 buy-and-burn executor. Current contracts authorize the owner or Solana authority
 to choose the recipient. They do not implement a distribution formula,
-trustless draw, decentralized exchange route, or automatic `$POT` burn.
+trustless draw, decentralized exchange route, or automatic `$LUCK` burn.
 
 Every production allocation needs an approved policy, decoded transaction,
 multisig confirmation, and externally auditable purpose record.
 
-## `$POT` token model
+## `$LUCK` token model
 
 ### Current implementation
 
-`scripts/deploy-evm.ts` deploys a new `JpegPotToken` whenever it deploys a chain
+`scripts/deploy-evm.ts` deploys a new `LuckyCommonsToken` whenever it deploys a chain
 stack. Running that script on multiple chains creates independent one-billion
 token supplies. Those deployments share metadata but are not synchronized
 representations of one asset.
 
-The Solana program has no SPL Token or Token-2022 `$POT` mint. There is no bridge
+The Solana program has no SPL Token or Token-2022 `$LUCK` mint. There is no bridge
 adapter, global supply registry, cross-chain mint limit, or synchronized burn
 accounting in this repository.
 
-Accordingly, `$POT` must be described as an EVM contract prototype, not a live
+Accordingly, `$LUCK` must be described as an EVM contract prototype, not a live
 multichain token.
 
 ### Production design requirement
 
-Before issuing `$POT`, the project must choose and audit one of these policies:
+Before issuing `$LUCK`, the project must choose and audit one of these policies:
 
 1. **Canonical-chain token:** mint the one-billion supply once and let users
    bridge through an audited lock-and-mint or burn-and-mint system.
@@ -213,7 +213,7 @@ For a canonical multichain design, enforce this invariant:
 canonical circulating supply
 + canonical tokens locked for bridging
 + circulating representations on every supported chain
-= 1,000,000,000 POT
+= 1,000,000,000 LUCK
 ```
 
 Required controls include per-chain mint ceilings, global rate limits, replay
@@ -222,7 +222,7 @@ and multisig ownership. The Solana representation would use an SPL Token or
 Token-2022 mint whose mint authority is controlled by the audited bridge design,
 not a browser or ordinary deployer wallet.
 
-NFTs should remain chain-local even if `$POT` becomes portable.
+NFTs should remain chain-local even if `$LUCK` becomes portable.
 
 ## Events and indexing
 

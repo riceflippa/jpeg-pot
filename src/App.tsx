@@ -42,7 +42,7 @@ type Family = "evm" | "solana";
 type EvmStandard = "ERC-721" | "ERC-1155";
 
 function Mark() {
-  return <span className="brand-mark" aria-hidden="true">JP</span>;
+  return <span className="brand-mark" aria-hidden="true">LC</span>;
 }
 
 function PackVisual({ asset }: { asset: CatalogAsset }) {
@@ -72,7 +72,7 @@ function SolanaWallet() {
 
 function PoolPreview() {
   return (
-    <aside className="pool-preview" aria-label="JPEG Pot testnet preview">
+    <aside className="pool-preview" aria-label="Lucky Commons testnet preview">
       <div className="pool-preview__status"><span>PUBLIC TESTNET</span><b>NO ACTIVE DRAW</b></div>
       <div className="pool-preview__amount"><span>Current prize pool</span><strong>0.00</strong><small>native crypto</small></div>
       <div className="pool-preview__flow">
@@ -80,7 +80,7 @@ function PoolPreview() {
         <div><span>02</span><strong>License</strong><small>verified media</small></div>
         <div><span>03</span><strong>Reward</strong><small>the pool</small></div>
       </div>
-      <p>Licensing revenue can fund future prizes and transparent $POT rewards.</p>
+      <p>Licensing revenue can fund future prizes and transparent $LUCK rewards.</p>
     </aside>
   );
 }
@@ -192,7 +192,7 @@ function DepositPanel() {
     try {
       if (standard === "ERC-721") await writeContractAsync({ abi: erc721Abi, address: collection as `0x${string}`, functionName: "approve", args: [vaultAddress, BigInt(tokenId)] });
       else await writeContractAsync({ abi: erc1155Abi, address: collection as `0x${string}`, functionName: "setApprovalForAll", args: [vaultAddress, true] });
-      setApproved(true); setNotice("Approval submitted. Wait for confirmation, then enter the pot.");
+      setApproved(true); setNotice("Approval submitted. Wait for confirmation, then enter the pool.");
     } catch (error) {
       setNotice(error instanceof Error ? error.message.split("\n")[0] : "Approval cancelled");
     }
@@ -268,11 +268,11 @@ function Marketplace({ onSelect }: { onSelect: (asset: CatalogAsset) => void }) 
 }
 
 function Terms() {
-  return <main className="terms-page"><a href="/" className="back-link">← JPEG POT</a><p className="eyebrow">POOL MEMBER TERMS · VERSION {TERMS_VERSION}</p><h1>{TERMS_TITLE}</h1><p className="terms-lede">{TERMS_LEDE}</p>{TERMS_SECTIONS.map(({ title, body }) => <section key={title}><h2>{title}</h2><p>{body}</p></section>)}<p className="legal-note">{TERMS_LEGAL_NOTE}</p></main>;
+  return <main className="terms-page"><a href="/" className="back-link">← LUCKY COMMONS</a><p className="eyebrow">POOL MEMBER TERMS · VERSION {TERMS_VERSION}</p><h1>{TERMS_TITLE}</h1><p className="terms-lede">{TERMS_LEDE}</p>{TERMS_SECTIONS.map(({ title, body }) => <section key={title}><h2>{title}</h2><p>{body}</p></section>)}<p className="legal-note">{TERMS_LEGAL_NOTE}</p></main>;
 }
 
 function LicenseTerms() {
-  return <main className="terms-page"><a href="/" className="back-link">← JPEG POT</a><p className="eyebrow">MEDIA BUYER TERMS · VERSION {LICENSE_TERMS_VERSION}</p><h1>{LICENSE_TERMS_TITLE}</h1><p className="terms-lede">{LICENSE_TERMS_LEDE}</p>{LICENSE_TERMS_SECTIONS.map(({ title, body }) => <section key={title}><h2>{title}</h2><p>{body}</p></section>)}<p className="legal-note">{LICENSE_TERMS_LEGAL_NOTE}</p><code className="terms-hash">TERMS HASH · {LICENSE_TERMS_HASH}</code></main>;
+  return <main className="terms-page"><a href="/" className="back-link">← LUCKY COMMONS</a><p className="eyebrow">MEDIA BUYER TERMS · VERSION {LICENSE_TERMS_VERSION}</p><h1>{LICENSE_TERMS_TITLE}</h1><p className="terms-lede">{LICENSE_TERMS_LEDE}</p>{LICENSE_TERMS_SECTIONS.map(({ title, body }) => <section key={title}><h2>{title}</h2><p>{body}</p></section>)}<p className="legal-note">{LICENSE_TERMS_LEGAL_NOTE}</p><code className="terms-hash">TERMS HASH · {LICENSE_TERMS_HASH}</code></main>;
 }
 
 export default function App() {
@@ -286,11 +286,11 @@ export default function App() {
 
   return (
     <>
-      <header className="site-header"><a href="#top" className="brand-link"><Mark /><strong>JPEG POT</strong><span>NFT PRIZE POOL</span></a><nav><a href="#how">How it works</a><a href="#enter">Enter the pool</a><a href="#marketplace">License media</a></nav><a className="header-action" href="#enter">ENTER POOL</a></header>
+      <header className="site-header"><a href="#top" className="brand-link"><Mark /><strong>LUCKY COMMONS</strong><span>NFT PRIZE POOL</span></a><nav><a href="#how">How it works</a><a href="#enter">Enter the pool</a><a href="#marketplace">License media</a></nav><a className="header-action" href="#enter">ENTER POOL</a></header>
       <main id="top">
         <section className="hero"><div className="hero-copy"><p className="eyebrow">MULTICHAIN NFT PRIZE POOL</p><h1>Give your NFT <em>another chance.</em></h1><p className="hero-lede">Deposit an idle NFT for prize eligibility. If its media rights are verified, licensing revenue can refill the pool—without selling the NFT.</p><div className="hero-actions"><a href="#enter" className="acid-action">ENTER AN NFT</a><a href="#marketplace" className="outline-action">LICENSE MEDIA</a></div><div className="hero-proof"><span>KEEP OWNERSHIP</span><span>RIGHTS OPTIONAL</span><span>ONCHAIN ONLY</span></div></div><PoolPreview /></section>
 
-        <section className="model" id="how"><div className="section-heading"><p className="eyebrow">HOW IT WORKS</p><h2>Deposit. License. Reward.</h2></div><div className="model-grid"><article><span>01</span><h3>Enter the pool</h3><p>Lock a supported NFT in its chain-local vault.</p></article><article><span>02</span><h3>License the media</h3><p>Verified artwork can be licensed for native crypto.</p></article><article><span>03</span><h3>Fund rewards</h3><p>Revenue can support prizes, member drops, reserves, or $POT buy-and-burn.</p></article></div><p className="model-note"><strong>Media rights are optional.</strong> An NFT can join the pool without being listed for commercial use.</p></section>
+        <section className="model" id="how"><div className="section-heading"><p className="eyebrow">HOW IT WORKS</p><h2>Deposit. License. Reward.</h2></div><div className="model-grid"><article><span>01</span><h3>Enter the pool</h3><p>Lock a supported NFT in its chain-local vault.</p></article><article><span>02</span><h3>License the media</h3><p>Verified artwork can be licensed for native crypto.</p></article><article><span>03</span><h3>Fund rewards</h3><p>Revenue can support prizes, member drops, reserves, or $LUCK buy-and-burn.</p></article></div><p className="model-note"><strong>Media rights are optional.</strong> An NFT can join the pool without being listed for commercial use.</p></section>
 
         <section className="enter-section" id="enter"><div className="enter-copy"><p className="eyebrow">FOR NFT HOLDERS</p><h2>Enter the pool.</h2><p>Connect a wallet and choose an NFT. Your asset stays in a chain-local vault and can be withdrawn under the published rules.</p><div className="enter-points"><span>Keep beneficial ownership</span><span>Never share wallet secrets</span><span>Opt in to media rights only if you have them</span></div></div><DepositPanel /></section>
 
@@ -298,7 +298,7 @@ export default function App() {
 
         <section className="principles"><div className="section-heading"><p className="eyebrow">CLEAR BY DESIGN</p><h2>One pool. Clear boundaries.</h2></div><div className="principle-grid"><article><h3>Chain-local custody</h3><p>NFTs stay on their source chain. No bridge is required.</p></article><article><h3>Explicit rights</h3><p>Ownership alone never becomes a media license.</p></article><article><h3>Public preview</h3><p>No prize draw is active until contracts, policy, audits, and legal review are complete.</p></article></div><div className="network-list" aria-label="Supported network families">{supportedNetworks.map((network) => <span key={network.name}>{network.name}</span>)}</div></section>
       </main>
-      <footer><div className="footer-brand"><Mark /><div><strong>JPEG POT</strong><span>Give an NFT another chance.</span></div></div><div><a href="#enter">Enter pool</a><a href="#marketplace">License media</a><a href="/terms/v1">Member terms</a><a href="/license/v1">Buyer terms</a></div><p>TESTNET · NO ACTIVE PRIZE</p></footer>
+      <footer><div className="footer-brand"><Mark /><div><strong>LUCKY COMMONS</strong><span>Give an NFT another chance.</span></div></div><div><a href="#enter">Enter pool</a><a href="#marketplace">License media</a><a href="/terms/v1">Member terms</a><a href="/license/v1">Buyer terms</a></div><p>TESTNET · NO ACTIVE PRIZE</p></footer>
       {selectedAsset && <LicensePackModal asset={selectedAsset} onClose={closeAsset} />}
     </>
   );

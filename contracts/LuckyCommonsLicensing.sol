@@ -7,16 +7,16 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-interface IJpegPotVault {
+interface ILuckyCommonsVault {
     function isLicensable(uint256 positionId) external view returns (bool);
     function lockForLicense(uint256 positionId, uint64 until, bytes32 dealId) external;
     function depositRevenue(bytes32 sourceId) external payable;
 }
 
-/// @title JPEG Pot media licensing marketplace
+/// @title Lucky Commons media licensing marketplace
 /// @notice Sells usage licenses for verified packages and mints non-transferable receipts.
 /// @dev Settlement is native-chain only. Payment and receipt issuance are atomic.
-contract JpegPotLicensing is ERC721, Ownable2Step, Pausable, ReentrancyGuard {
+contract LuckyCommonsLicensing is ERC721, Ownable2Step, Pausable, ReentrancyGuard {
     enum RightsSource {
         PublicDomain,
         DepositorAttestation
@@ -45,7 +45,7 @@ contract JpegPotLicensing is ERC721, Ownable2Step, Pausable, ReentrancyGuard {
 
     uint256 public constant MAX_POSITIONS_PER_PACKAGE = 32;
 
-    IJpegPotVault public immutable vault;
+    ILuckyCommonsVault public immutable vault;
     uint256 public nextPackageId = 1;
     uint256 public nextReceiptId = 1;
 
@@ -84,11 +84,11 @@ contract JpegPotLicensing is ERC721, Ownable2Step, Pausable, ReentrancyGuard {
     error ZeroAddress();
 
     constructor(address initialOwner, address vaultAddress)
-        ERC721("JPEG Pot License", "JP-LICENSE")
+        ERC721("Lucky Commons License", "LC-LICENSE")
         Ownable(initialOwner)
     {
         if (initialOwner == address(0) || vaultAddress == address(0)) revert ZeroAddress();
-        vault = IJpegPotVault(vaultAddress);
+        vault = ILuckyCommonsVault(vaultAddress);
     }
 
     function pause() external onlyOwner {

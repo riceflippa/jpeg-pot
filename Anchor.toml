@@ -6,10 +6,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-jpeg_pot_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
+lucky_commons_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
 
 [programs.devnet]
-jpeg_pot_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
+lucky_commons_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
 
 [provider]
 cluster = "localnet"

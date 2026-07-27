@@ -3,22 +3,22 @@ import { describe, it } from "node:test";
 import { getAddress, keccak256, parseEther, stringToHex } from "viem";
 import { network } from "hardhat";
 
-describe("JpegPotLicensing", async function () {
+describe("LuckyCommonsLicensing", async function () {
   const { viem } = await network.create();
   const [owner, member, buyer] = await viem.getWalletClients();
   const publicClient = await viem.getPublicClient();
-  const intakeTermsHash = keccak256(stringToHex("JPEG Pot Intake Terms v1"));
-  const licenseTermsHash = keccak256(stringToHex("JPEG Pot Usage License v1"));
+  const intakeTermsHash = keccak256(stringToHex("Lucky Commons Intake Terms v1"));
+  const licenseTermsHash = keccak256(stringToHex("Lucky Commons Usage License v1"));
   const manifestHash = keccak256(stringToHex("ipfs://package-manifest"));
 
   async function deployFixture() {
-    const vault = await viem.deployContract("JpegPotVault", [
+    const vault = await viem.deployContract("LuckyCommonsVault", [
       owner.account.address,
       0n,
       intakeTermsHash,
       "https://example.com/intake/v1",
     ]);
-    const licensing = await viem.deployContract("JpegPotLicensing", [
+    const licensing = await viem.deployContract("LuckyCommonsLicensing", [
       owner.account.address,
       vault.address,
     ]);

@@ -2,9 +2,9 @@
 
 The production preview is a Cloudflare Worker with static assets:
 
-- Worker name: `jpeg-pot`
-- Production URL: `https://jpeg-pot.jpegpot.workers.dev`
-- Health URL: `https://jpeg-pot.jpegpot.workers.dev/api/health`
+- Worker name: `luckycommons`
+- Production URL: `https://luckycommons.jpegpot.workers.dev`
+- Health URL: `https://luckycommons.jpegpot.workers.dev/api/health`
 - Configuration source: `wrangler.jsonc`
 - Deployment workflow: `.github/workflows/deploy-cloudflare.yml`
 
@@ -30,7 +30,7 @@ concurrency prevents two production deployments from running at the same time.
 ### 1. Create a Cloudflare token
 
 In Cloudflare, create a custom API token using the **Edit Cloudflare Workers**
-template. Restrict it to the single account containing the `jpeg-pot` Worker.
+template. Restrict it to the single account containing the `luckycommons` Worker.
 Do not use a Global API Key.
 
 The workflow needs:
@@ -44,8 +44,8 @@ Open repository **Settings → Secrets and variables → Actions → Secrets** a
 create both values, or use authenticated GitHub CLI prompts:
 
 ```bash
-gh secret set CLOUDFLARE_ACCOUNT_ID --repo riceflippa/jpeg-pot
-gh secret set CLOUDFLARE_API_TOKEN --repo riceflippa/jpeg-pot
+gh secret set CLOUDFLARE_ACCOUNT_ID --repo riceflippa/luckycommons
+gh secret set CLOUDFLARE_API_TOKEN --repo riceflippa/luckycommons
 ```
 
 Do not pass a secret as a command-line argument, write it to a shell-history
@@ -93,7 +93,7 @@ workflow from the repository's **Actions → Cloudflare Production** page.
 A successful run must show:
 
 1. All validation steps green.
-2. A Wrangler deployment result for Worker `jpeg-pot`.
+2. A Wrangler deployment result for Worker `luckycommons`.
 3. A successful production health response.
 4. The live page loading at the production URL.
 
@@ -132,7 +132,7 @@ approval.
 
 Preferred dashboard procedure:
 
-1. Open Cloudflare **Workers & Pages → jpeg-pot → Deployments**.
+1. Open Cloudflare **Workers & Pages → luckycommons → Deployments**.
 2. Identify the last known-good version and its source commit.
 3. Select that version's menu and choose **Rollback**.
 4. Verify `/api/health` and the critical user paths.
@@ -173,7 +173,7 @@ token as an Actions secret keeps the workflow interface consistent.
 
 ### Worker not found or wrong URL
 
-- Confirm `name` in `wrangler.jsonc` is exactly `jpeg-pot`.
+- Confirm `name` in `wrangler.jsonc` is exactly `luckycommons`.
 - Confirm the account ID owns that Worker and workers.dev subdomain.
 - Do not rename the Worker in the dashboard without a reviewed config change.
 

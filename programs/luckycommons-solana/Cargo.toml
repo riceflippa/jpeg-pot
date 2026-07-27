@@ -1,12 +1,12 @@
 [package]
-name = "jpeg-pot-solana"
+name = "luckycommons-solana"
 version = "0.1.0"
-description = "JPEG Pot custody and licensing positions for Solana NFTs"
+description = "Lucky Commons custody and licensing positions for Solana NFTs"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "jpeg_pot_solana"
+name = "lucky_commons_solana"
 
 [features]
 default = []

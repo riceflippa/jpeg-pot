@@ -1,6 +1,6 @@
-# Contributing to JPEG Pot
+# Contributing to Lucky Commons
 
-JPEG Pot welcomes focused, reviewable contributions. The repository is a
+Lucky Commons welcomes focused, reviewable contributions. The repository is a
 testnet preview, so correctness and honest product language take priority over
 shipping production claims.
 

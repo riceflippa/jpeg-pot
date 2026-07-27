@@ -1,4 +1,4 @@
-# JPEG Pot operator guide
+# Lucky Commons operator guide
 
 This guide is the operational source of truth for the testnet preview. It
 describes what an operator can do with the repository today and labels every
@@ -6,7 +6,7 @@ step that is not production-ready.
 
 ## 1. Operating boundaries
 
-JPEG Pot currently has three independently deployed surfaces:
+Lucky Commons currently has three independently deployed surfaces:
 
 1. A React web client and Cloudflare Worker.
 2. EVM contracts deployed once per supported EVM chain.
@@ -43,8 +43,8 @@ Required tools:
 Clone and verify:
 
 ```bash
-git clone https://github.com/riceflippa/jpeg-pot.git
-cd jpeg-pot
+git clone https://github.com/riceflippa/luckycommons.git
+cd luckycommons
 npm ci
 npm run compile
 npm test
@@ -136,9 +136,9 @@ npm run deploy:evm:amoy
 
 The script deploys, in order:
 
-1. `JpegPotToken`, minting its fixed supply to the deployer address.
-2. `JpegPotVault`, with a seven-day withdrawal cooldown and current terms hash.
-3. `JpegPotLicensing`, pointing to the new vault.
+1. `LuckyCommonsToken`, minting its fixed supply to the deployer address.
+2. `LuckyCommonsVault`, with a seven-day withdrawal cooldown and current terms hash.
+3. `LuckyCommonsLicensing`, pointing to the new vault.
 4. A vault transaction authorizing the licensing contract as a license
    operator.
 
@@ -253,7 +253,7 @@ Before a release:
 After a release:
 
 - Confirm the GitHub workflow succeeded.
-- Check `https://jpeg-pot.jpegpot.workers.dev/api/health`.
+- Check `https://luckycommons.jpegpot.workers.dev/api/health`.
 - Exercise the home page on desktop and mobile.
 - Confirm wallet prompts target the expected chain and contract.
 - Record the Git commit and Cloudflare deployment version.
@@ -271,6 +271,6 @@ Production remains blocked until all applicable items are complete:
 - Jurisdiction-specific gambling, consumer, sanctions, tax, and IP review.
 - Rights evidence and takedown operations.
 - Multisig ownership and separate program upgrade authority.
-- Unified `$POT` supply architecture or explicit chain-specific token policy.
+- Unified `$LUCK` supply architecture or explicit chain-specific token policy.
 - Monitoring, alerting, indexing, backups, and rehearsed incident response.
 - Tested pause, rollback, ownership transfer, and recovery procedures.

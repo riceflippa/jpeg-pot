@@ -1,7 +1,7 @@
 import { keccak256, stringToHex } from "viem";
 
 export const LICENSE_TERMS_VERSION = 1;
-export const LICENSE_TERMS_TITLE = "JPEG Pot Media Usage License";
+export const LICENSE_TERMS_TITLE = "Lucky Commons Media Usage License";
 export const LICENSE_TERMS_LEDE =
   "These terms explain what a buyer receives, where the media rights come from, and what the on-chain receipt proves.";
 
@@ -16,7 +16,7 @@ export const LICENSE_TERMS_SECTIONS = [
   },
   {
     title: "3. Depositor-authorized packages",
-    body: "A package labeled Owner authorized is offered only while its NFT is held in a chain-local JPEG Pot vault and the depositor has attested that commercial media rights can be granted. The buyer receives a non-exclusive, worldwide license for the uses and period stated in that package, subject to the collection's governing terms.",
+    body: "A package labeled Owner authorized is offered only while its NFT is held in a chain-local Lucky Commons vault and the depositor has attested that commercial media rights can be granted. The buyer receives a non-exclusive, worldwide license for the uses and period stated in that package, subject to the collection's governing terms.",
   },
   {
     title: "4. Permitted uses",
@@ -32,7 +32,7 @@ export const LICENSE_TERMS_SECTIONS = [
   },
   {
     title: "7. Rights provenance",
-    body: "JPEG Pot records the collection, chain, token identifier, source metadata hash, rights source, and applicable terms. Buyers should retain the license certificate and package manifest. If an owner-authorized package loses a required rights attestation before purchase, the smart contract rejects issuance.",
+    body: "Lucky Commons records the collection, chain, token identifier, source metadata hash, rights source, and applicable terms. Buyers should retain the license certificate and package manifest. If an owner-authorized package loses a required rights attestation before purchase, the smart contract rejects issuance.",
   },
 ] as const;
 
@@ -47,4 +47,4 @@ export const LICENSE_TERMS_TEXT = [
 ].join("\n\n");
 
 export const LICENSE_TERMS_HASH = keccak256(stringToHex(LICENSE_TERMS_TEXT));
-export const DEFAULT_LICENSE_TERMS_URI = "https://jpeg-pot.jpegpot.workers.dev/license/v1";
+export const DEFAULT_LICENSE_TERMS_URI = "https://luckycommons.jpegpot.workers.dev/license/v1";

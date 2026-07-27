@@ -8,7 +8,7 @@ const assets = {
 describe("Cloudflare Worker", () => {
   it("reports blockchain-only settlement", async () => {
     const response = await worker.fetch(
-      new Request("https://jpeg-pot.example/api/health"),
+      new Request("https://luckycommons.example/api/health"),
       { ASSETS: assets },
     );
     await expect(response.json()).resolves.toEqual({ ok: true, payments: "onchain-only" });
@@ -18,7 +18,7 @@ describe("Cloudflare Worker", () => {
 
   it("has no off-chain checkout API", async () => {
     const response = await worker.fetch(
-      new Request("https://jpeg-pot.example/api/checkout/card", { method: "POST" }),
+      new Request("https://luckycommons.example/api/checkout/card", { method: "POST" }),
       { ASSETS: assets },
     );
     expect(response.status).toBe(404);

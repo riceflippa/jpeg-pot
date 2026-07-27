@@ -1,6 +1,6 @@
 # Security policy
 
-JPEG Pot is a testnet product preview. The contracts and Solana program have not
+Lucky Commons is a testnet product preview. The contracts and Solana program have not
 completed an independent production audit and must not be treated as approved
 for mainnet custody, live prizes, or commercial licensing.
 
@@ -59,7 +59,7 @@ Before production:
   upgrade operations.
 - Rights-review and takedown controls.
 - Trustless prize mechanism and funded claims policy.
-- Bridge review or explicit chain-specific `$POT` policy.
+- Bridge review or explicit chain-specific `$LUCK` policy.
 - Tested incident, pause, rollback, and recovery procedures.
 - Jurisdiction-specific legal review.
 

@@ -11,10 +11,10 @@ import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-/// @title JPEG Pot multichain EVM vault
+/// @title Lucky Commons multichain EVM vault
 /// @notice Custodies ERC-721/1155 assets and records a revocable, versioned media-rights attestation.
 /// @dev Deploy one instance per EVM chain. Indexers merge Position events across deployments.
-contract JpegPotVault is
+contract LuckyCommonsVault is
     IERC721Receiver,
     IERC1155Receiver,
     Ownable2Step,

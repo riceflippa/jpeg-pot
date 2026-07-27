@@ -18,7 +18,7 @@ const RECEIPT_SEED: &[u8] = b"receipt";
 const MAX_POSITIONS_PER_PACKAGE: usize = 32;
 
 #[program]
-pub mod jpeg_pot_solana {
+pub mod lucky_commons_solana {
     use super::*;
 
     pub fn initialize(
@@ -27,12 +27,12 @@ pub mod jpeg_pot_solana {
         terms_uri: String,
         withdrawal_cooldown: i64,
     ) -> Result<()> {
-        require!(terms_hash != [0; 32], JpegPotError::InvalidTerms);
+        require!(terms_hash != [0; 32], LuckyCommonsError::InvalidTerms);
         require!(
             !terms_uri.is_empty() && terms_uri.len() <= 200,
-            JpegPotError::InvalidTerms
+            LuckyCommonsError::InvalidTerms
         );
-        require!(withdrawal_cooldown >= 0, JpegPotError::InvalidCooldown);
+        require!(withdrawal_cooldown >= 0, LuckyCommonsError::InvalidCooldown);
 
         let config = &mut ctx.accounts.config;
         config.authority = ctx.accounts.authority.key();
@@ -79,7 +79,7 @@ pub mod jpeg_pot_solana {
         )?;
         require!(
             package_id == ctx.accounts.config.next_package_id,
-            JpegPotError::InvalidPackage
+            LuckyCommonsError::InvalidPackage
         );
         validate_position_accounts(
             ctx.program_id,
@@ -106,7 +106,7 @@ pub mod jpeg_pot_solana {
             .config
             .next_package_id
             .checked_add(1)
-            .ok_or(JpegPotError::ArithmeticOverflow)?;
+            .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
 
         emit!(LicensePackageCreated {
             package: license_package.key(),
@@ -117,7 +117,7 @@ pub mod jpeg_pot_solana {
             duration_seconds,
             rights_source,
             position_count: u8::try_from(position_assets.len())
-                .map_err(|_| error!(JpegPotError::TooManyPositions))?,
+                .map_err(|_| error!(LuckyCommonsError::TooManyPositions))?,
         });
         Ok(())
     }
@@ -136,14 +136,14 @@ pub mod jpeg_pot_solana {
 
     pub fn purchase_license(ctx: Context<PurchaseLicense>, receipt_nonce: u64) -> Result<()> {
         let license_package = &ctx.accounts.license_package;
-        require!(license_package.active, JpegPotError::InvalidPackage);
+        require!(license_package.active, LuckyCommonsError::InvalidPackage);
         require!(
             license_package.license_terms_hash != [0; 32],
-            JpegPotError::InvalidTerms
+            LuckyCommonsError::InvalidTerms
         );
         require!(
             ctx.accounts.beneficiary.key() != Pubkey::default(),
-            JpegPotError::InvalidRecipient
+            LuckyCommonsError::InvalidRecipient
         );
 
         let now = Clock::get()?.unix_timestamp;
@@ -189,7 +189,7 @@ pub mod jpeg_pot_solana {
             .config
             .total_license_receipts
             .checked_add(1)
-            .ok_or(JpegPotError::ArithmeticOverflow)?;
+            .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
 
         emit!(LicensePurchased {
             receipt: receipt.key(),
@@ -210,10 +210,10 @@ pub mod jpeg_pot_solana {
         terms_hash: [u8; 32],
         terms_uri: String,
     ) -> Result<()> {
-        require!(terms_hash != [0; 32], JpegPotError::InvalidTerms);
+        require!(terms_hash != [0; 32], LuckyCommonsError::InvalidTerms);
         require!(
             !terms_uri.is_empty() && terms_uri.len() <= 200,
-            JpegPotError::InvalidTerms
+            LuckyCommonsError::InvalidTerms
         );
 
         let config = &mut ctx.accounts.config;
@@ -222,7 +222,7 @@ pub mod jpeg_pot_solana {
         config.terms_version = config
             .terms_version
             .checked_add(1)
-            .ok_or(JpegPotError::ArithmeticOverflow)?;
+            .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
 
         emit!(TermsPublished {
             version: config.terms_version,
@@ -241,11 +241,11 @@ pub mod jpeg_pot_solana {
         validate_metadata_asset(&ctx.accounts.metadata, ctx.accounts.mint.key())?;
         require!(
             ctx.accounts.source_token.amount == 1,
-            JpegPotError::InvalidAssetAmount
+            LuckyCommonsError::InvalidAssetAmount
         );
         require!(
             ctx.accounts.mint.decimals == 0,
-            JpegPotError::InvalidAssetAmount
+            LuckyCommonsError::InvalidAssetAmount
         );
 
         invoke_metadata_transfer(
@@ -326,7 +326,7 @@ pub mod jpeg_pot_solana {
         require_keys_eq!(
             ctx.accounts.asset.owner,
             ctx.accounts.depositor.key(),
-            JpegPotError::NotAssetOwner
+            LuckyCommonsError::NotAssetOwner
         );
 
         let depositor_info = ctx.accounts.depositor.to_account_info();
@@ -367,7 +367,7 @@ pub mod jpeg_pot_solana {
         require_keys_eq!(
             ctx.accounts.asset.owner,
             ctx.accounts.vault_authority.key(),
-            JpegPotError::InvalidVaultOwner
+            LuckyCommonsError::InvalidVaultOwner
         );
 
         let signer_bump = [ctx.accounts.config.vault_bump];
@@ -400,15 +400,15 @@ pub mod jpeg_pot_solana {
         let position = &mut ctx.accounts.position;
         require!(
             position.active && position.commercial_rights_attested,
-            JpegPotError::PositionNotLicensable
+            LuckyCommonsError::PositionNotLicensable
         );
         require!(
             licensed_until > Clock::get()?.unix_timestamp,
-            JpegPotError::InvalidLicensePeriod
+            LuckyCommonsError::InvalidLicensePeriod
         );
         require!(
             licensed_until > position.licensed_until,
-            JpegPotError::InvalidLicensePeriod
+            LuckyCommonsError::InvalidLicensePeriod
         );
         position.licensed_until = licensed_until;
         emit!(PositionLicenseLocked {
@@ -424,7 +424,7 @@ pub mod jpeg_pot_solana {
         amount: u64,
         source_hash: [u8; 32],
     ) -> Result<()> {
-        require!(amount > 0, JpegPotError::InvalidRevenueAmount);
+        require!(amount > 0, LuckyCommonsError::InvalidRevenueAmount);
         system_program::transfer(
             CpiContext::new(
                 ctx.accounts.system_program.to_account_info(),
@@ -448,21 +448,21 @@ pub mod jpeg_pot_solana {
         amount: u64,
         purpose_hash: [u8; 32],
     ) -> Result<()> {
-        require!(amount > 0, JpegPotError::InvalidRevenueAmount);
+        require!(amount > 0, LuckyCommonsError::InvalidRevenueAmount);
         let config_info = ctx.accounts.config.to_account_info();
         let recipient_info = ctx.accounts.recipient.to_account_info();
         let rent_floor = Rent::get()?.minimum_balance(config_info.data_len());
         let remaining = config_info
             .lamports()
             .checked_sub(amount)
-            .ok_or(JpegPotError::InsufficientRevenue)?;
-        require!(remaining >= rent_floor, JpegPotError::InsufficientRevenue);
+            .ok_or(LuckyCommonsError::InsufficientRevenue)?;
+        require!(remaining >= rent_floor, LuckyCommonsError::InsufficientRevenue);
 
         **config_info.try_borrow_mut_lamports()? = remaining;
         **recipient_info.try_borrow_mut_lamports()? = recipient_info
             .lamports()
             .checked_add(amount)
-            .ok_or(JpegPotError::ArithmeticOverflow)?;
+            .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
 
         emit!(RevenueAllocated {
             recipient: ctx.accounts.recipient.key(),
@@ -625,9 +625,9 @@ pub struct WithdrawMetadataAsset<'info> {
         seeds = [POSITION_SEED, mint.key().as_ref()],
         bump = position.bump,
         has_one = depositor,
-        constraint = position.asset == mint.key() @ JpegPotError::InvalidPosition,
-        constraint = position.origin_token_account == destination_token.key() @ JpegPotError::InvalidPosition,
-        constraint = position.standard == AssetStandard::TokenMetadata @ JpegPotError::InvalidPosition
+        constraint = position.asset == mint.key() @ LuckyCommonsError::InvalidPosition,
+        constraint = position.origin_token_account == destination_token.key() @ LuckyCommonsError::InvalidPosition,
+        constraint = position.standard == AssetStandard::TokenMetadata @ LuckyCommonsError::InvalidPosition
     )]
     pub position: Box<Account<'info, Position>>,
     /// CHECK: Canonical PDA used as the transfer authority.
@@ -713,8 +713,8 @@ pub struct WithdrawCoreAsset<'info> {
         seeds = [POSITION_SEED, asset.key().as_ref()],
         bump = position.bump,
         has_one = depositor,
-        constraint = position.asset == asset.key() @ JpegPotError::InvalidPosition,
-        constraint = position.standard == AssetStandard::Core @ JpegPotError::InvalidPosition
+        constraint = position.asset == asset.key() @ LuckyCommonsError::InvalidPosition,
+        constraint = position.standard == AssetStandard::Core @ LuckyCommonsError::InvalidPosition
     )]
     pub position: Account<'info, Position>,
     /// CHECK: Canonical PDA used as the transfer authority.
@@ -753,7 +753,7 @@ pub struct AllocateRevenue<'info> {
     #[account(mut, seeds = [CONFIG_SEED], bump = config.bump, has_one = authority)]
     pub config: Account<'info, Config>,
     /// CHECK: Receives SOL only and cannot be the zero address.
-    #[account(mut, constraint = recipient.key() != Pubkey::default() @ JpegPotError::InvalidRecipient)]
+    #[account(mut, constraint = recipient.key() != Pubkey::default() @ LuckyCommonsError::InvalidRecipient)]
     pub recipient: UncheckedAccount<'info>,
 }
 
@@ -911,7 +911,7 @@ pub struct RevenueAllocated {
 }
 
 #[error_code]
-pub enum JpegPotError {
+pub enum LuckyCommonsError {
     #[msg("The accepted license terms are not current")]
     InvalidTerms,
     #[msg("The withdrawal cooldown is invalid")]
@@ -961,44 +961,44 @@ fn validate_package_definition(
     license_uri: &str,
     position_assets: &[Pubkey],
 ) -> Result<()> {
-    require!(manifest_hash != [0; 32], JpegPotError::InvalidPackage);
-    require!(license_terms_hash != [0; 32], JpegPotError::InvalidTerms);
+    require!(manifest_hash != [0; 32], LuckyCommonsError::InvalidPackage);
+    require!(license_terms_hash != [0; 32], LuckyCommonsError::InvalidTerms);
     require!(
         native_price_lamports > 0,
-        JpegPotError::InvalidRevenueAmount
+        LuckyCommonsError::InvalidRevenueAmount
     );
     require!(
         !metadata_uri.is_empty() && metadata_uri.len() <= 200,
-        JpegPotError::InvalidPackage
+        LuckyCommonsError::InvalidPackage
     );
     require!(
         !license_uri.is_empty() && license_uri.len() <= 200,
-        JpegPotError::InvalidTerms
+        LuckyCommonsError::InvalidTerms
     );
     require!(
         position_assets.len() <= MAX_POSITIONS_PER_PACKAGE,
-        JpegPotError::TooManyPositions
+        LuckyCommonsError::TooManyPositions
     );
     for index in 0..position_assets.len() {
         require!(
             !position_assets[..index].contains(&position_assets[index]),
-            JpegPotError::InvalidPackagePositions
+            LuckyCommonsError::InvalidPackagePositions
         );
     }
     match rights_source {
         RightsSource::PublicDomain => {
             require!(
                 position_assets.is_empty(),
-                JpegPotError::InvalidPackagePositions
+                LuckyCommonsError::InvalidPackagePositions
             );
-            require!(duration_seconds >= 0, JpegPotError::InvalidLicensePeriod);
+            require!(duration_seconds >= 0, LuckyCommonsError::InvalidLicensePeriod);
         }
         RightsSource::DepositorAttestation => {
             require!(
                 !position_assets.is_empty(),
-                JpegPotError::InvalidPackagePositions
+                LuckyCommonsError::InvalidPackagePositions
             );
-            require!(duration_seconds > 0, JpegPotError::InvalidLicensePeriod);
+            require!(duration_seconds > 0, LuckyCommonsError::InvalidLicensePeriod);
         }
     }
     Ok(())
@@ -1008,9 +1008,9 @@ fn compute_valid_until(now: i64, duration_seconds: i64) -> Result<i64> {
     if duration_seconds == 0 {
         return Ok(i64::MAX);
     }
-    require!(duration_seconds > 0, JpegPotError::InvalidLicensePeriod);
+    require!(duration_seconds > 0, LuckyCommonsError::InvalidLicensePeriod);
     now.checked_add(duration_seconds)
-        .ok_or_else(|| error!(JpegPotError::ArithmeticOverflow))
+        .ok_or_else(|| error!(LuckyCommonsError::ArithmeticOverflow))
 }
 
 fn validate_position_accounts<'info>(
@@ -1021,33 +1021,33 @@ fn validate_position_accounts<'info>(
 ) -> Result<()> {
     require!(
         accounts.len() == position_assets.len(),
-        JpegPotError::InvalidPackagePositions
+        LuckyCommonsError::InvalidPackagePositions
     );
     for (asset, account_info) in position_assets.iter().zip(accounts.iter()) {
         let expected = Pubkey::find_program_address(&[POSITION_SEED, asset.as_ref()], program_id).0;
         require_keys_eq!(
             account_info.key(),
             expected,
-            JpegPotError::InvalidPackagePositions
+            LuckyCommonsError::InvalidPackagePositions
         );
         require_keys_eq!(
             *account_info.owner,
             *program_id,
-            JpegPotError::InvalidPackagePositions
+            LuckyCommonsError::InvalidPackagePositions
         );
         if require_writable {
             require!(
                 account_info.is_writable,
-                JpegPotError::InvalidPackagePositions
+                LuckyCommonsError::InvalidPackagePositions
             );
         }
         let data = account_info.try_borrow_data()?;
         let mut cursor: &[u8] = &data;
         let position = Position::try_deserialize(&mut cursor)
-            .map_err(|_| error!(JpegPotError::InvalidPackagePositions))?;
+            .map_err(|_| error!(LuckyCommonsError::InvalidPackagePositions))?;
         require!(
             position.asset == *asset && position.active && position.commercial_rights_attested,
-            JpegPotError::PositionNotLicensable
+            LuckyCommonsError::PositionNotLicensable
         );
     }
     Ok(())
@@ -1064,12 +1064,12 @@ fn lock_package_positions<'info>(
         require_keys_eq!(
             account_info.key(),
             expected,
-            JpegPotError::InvalidPackagePositions
+            LuckyCommonsError::InvalidPackagePositions
         );
         let mut data = account_info.try_borrow_mut_data()?;
         let mut read_cursor: &[u8] = &data;
         let mut position = Position::try_deserialize(&mut read_cursor)
-            .map_err(|_| error!(JpegPotError::InvalidPackagePositions))?;
+            .map_err(|_| error!(LuckyCommonsError::InvalidPackagePositions))?;
         if valid_until > position.licensed_until {
             position.licensed_until = valid_until;
             let mut write_cursor: &mut [u8] = &mut data;
@@ -1082,7 +1082,7 @@ fn lock_package_positions<'info>(
 fn validate_terms(config: &Config, accepted_terms_hash: [u8; 32]) -> Result<()> {
     require!(
         accepted_terms_hash == config.terms_hash,
-        JpegPotError::InvalidTerms
+        LuckyCommonsError::InvalidTerms
     );
     Ok(())
 }
@@ -1092,12 +1092,12 @@ fn validate_metadata_asset(metadata_account: &UncheckedAccount, mint: Pubkey) ->
     require_keys_eq!(
         metadata_account.key(),
         expected,
-        JpegPotError::UnsupportedAsset
+        LuckyCommonsError::UnsupportedAsset
     );
     let data = metadata_account.try_borrow_data()?;
     let metadata =
-        Metadata::from_bytes(&data).map_err(|_| error!(JpegPotError::UnsupportedAsset))?;
-    require_keys_eq!(metadata.mint, mint, JpegPotError::UnsupportedAsset);
+        Metadata::from_bytes(&data).map_err(|_| error!(LuckyCommonsError::UnsupportedAsset))?;
+    require_keys_eq!(metadata.mint, mint, LuckyCommonsError::UnsupportedAsset);
     let supported = matches!(
         metadata.token_standard,
         Some(TokenStandard::NonFungible)
@@ -1105,7 +1105,7 @@ fn validate_metadata_asset(metadata_account: &UncheckedAccount, mint: Pubkey) ->
             | Some(TokenStandard::ProgrammableNonFungible)
             | Some(TokenStandard::ProgrammableNonFungibleEdition)
     );
-    require!(supported, JpegPotError::UnsupportedAsset);
+    require!(supported, LuckyCommonsError::UnsupportedAsset);
     Ok(())
 }
 
@@ -1183,7 +1183,7 @@ fn open_position(
     config.total_active_positions = config
         .total_active_positions
         .checked_add(1)
-        .ok_or(JpegPotError::ArithmeticOverflow)?;
+        .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
 
     emit!(PositionOpened {
         depositor,
@@ -1197,15 +1197,15 @@ fn open_position(
 }
 
 fn validate_withdrawal(config: &Config, position: &Position, now: i64) -> Result<()> {
-    require!(position.active, JpegPotError::InvalidPosition);
+    require!(position.active, LuckyCommonsError::InvalidPosition);
     let available_at = position
         .deposited_at
         .checked_add(config.withdrawal_cooldown)
-        .ok_or(JpegPotError::ArithmeticOverflow)?;
-    require!(now >= available_at, JpegPotError::CooldownActive);
+        .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
+    require!(now >= available_at, LuckyCommonsError::CooldownActive);
     require!(
         now >= position.licensed_until,
-        JpegPotError::AssetLicenseLocked
+        LuckyCommonsError::AssetLicenseLocked
     );
     Ok(())
 }
@@ -1215,7 +1215,7 @@ fn close_position(config: &mut Account<Config>, position: &mut Account<Position>
     config.total_active_positions = config
         .total_active_positions
         .checked_sub(1)
-        .ok_or(JpegPotError::ArithmeticOverflow)?;
+        .ok_or(LuckyCommonsError::ArithmeticOverflow)?;
     emit!(PositionWithdrawn {
         depositor: position.depositor,
         asset: position.asset,

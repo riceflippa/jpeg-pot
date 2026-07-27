@@ -3,14 +3,14 @@ import { describe, it } from "node:test";
 import { getAddress, keccak256, parseEther, stringToHex, zeroAddress } from "viem";
 import { network } from "hardhat";
 
-describe("JpegPotVault", async function () {
+describe("LuckyCommonsVault", async function () {
   const { viem } = await network.create();
   const [owner, member, buyer] = await viem.getWalletClients();
   const publicClient = await viem.getPublicClient();
-  const termsHash = keccak256(stringToHex("JPEG Pot Media License Terms v1"));
+  const termsHash = keccak256(stringToHex("Lucky Commons Media License Terms v1"));
 
   async function deployFixture(cooldown = 0n) {
-    const vault = await viem.deployContract("JpegPotVault", [
+    const vault = await viem.deployContract("LuckyCommonsVault", [
       owner.account.address,
       cooldown,
       termsHash,
@@ -112,13 +112,15 @@ describe("JpegPotVault", async function () {
     assert.equal(after - before, amount);
   });
 
-  it("mints a fixed POT supply to the treasury", async function () {
-    const token = await viem.deployContract("JpegPotToken", [owner.account.address]);
+  it("mints a fixed LUCK supply to the treasury", async function () {
+    const token = await viem.deployContract("LuckyCommonsToken", [owner.account.address]);
+    assert.equal(await token.read.name(), "Lucky Commons");
+    assert.equal(await token.read.symbol(), "LUCK");
     assert.equal(await token.read.totalSupply(), 1_000_000_000n * 10n ** 18n);
     assert.equal(await token.read.balanceOf([owner.account.address]), await token.read.totalSupply());
 
     await viem.assertions.revertWithCustomError(
-      viem.deployContract("JpegPotToken", [zeroAddress]),
+      viem.deployContract("LuckyCommonsToken", [zeroAddress]),
       token,
       "ZeroAddress",
     );

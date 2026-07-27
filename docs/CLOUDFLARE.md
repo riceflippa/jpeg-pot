@@ -2,9 +2,9 @@
 
 The production preview is a Cloudflare Worker with static assets:
 
-- Worker name: `lucky`
-- Production URL: `https://lucky.luckycommons.workers.dev`
-- Health URL: `https://lucky.luckycommons.workers.dev/api/health`
+- Worker name: `luckycommons`
+- Production URL: `https://luckycommons.luckycommons.workers.dev`
+- Health URL: `https://luckycommons.luckycommons.workers.dev/api/health`
 - Configuration source: `wrangler.jsonc`
 - Deployment workflow: `.github/workflows/deploy-cloudflare.yml`
 
@@ -30,7 +30,7 @@ concurrency prevents two production deployments from running at the same time.
 ### 1. Create a Cloudflare token
 
 In Cloudflare, create a custom API token using the **Edit Cloudflare Workers**
-template. Restrict it to the single account containing the `lucky` Worker.
+template. Restrict it to the single account containing the `luckycommons` Worker.
 Do not use a Global API Key.
 
 The workflow needs:
@@ -93,7 +93,7 @@ workflow from the repository's **Actions → Cloudflare Production** page.
 A successful run must show:
 
 1. All validation steps green.
-2. A Wrangler deployment result for Worker `lucky`.
+2. A Wrangler deployment result for Worker `luckycommons`.
 3. A successful production health response.
 4. The live page loading at the production URL.
 
@@ -132,7 +132,7 @@ approval.
 
 Preferred dashboard procedure:
 
-1. Open Cloudflare **Workers & Pages → lucky → Deployments**.
+1. Open Cloudflare **Workers & Pages → luckycommons → Deployments**.
 2. Identify the last known-good version and its source commit.
 3. Select that version's menu and choose **Rollback**.
 4. Verify `/api/health` and the critical user paths.
@@ -173,7 +173,7 @@ token as an Actions secret keeps the workflow interface consistent.
 
 ### Worker not found or wrong URL
 
-- Confirm `name` in `wrangler.jsonc` is exactly `lucky`.
+- Confirm `name` in `wrangler.jsonc` is exactly `luckycommons`.
 - Confirm the account ID owns that Worker and workers.dev subdomain.
 - Do not rename the Worker in the dashboard without a reviewed config change.
 

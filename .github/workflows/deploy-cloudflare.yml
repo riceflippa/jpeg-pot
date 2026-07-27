@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 20
     environment:
       name: production
-      url: https://lucky.luckycommons.workers.dev
+      url: https://luckycommons.luckycommons.workers.dev
     env:
       VITE_EVM_CHAIN: ${{ vars.VITE_EVM_CHAIN || 'polygonAmoy' }}
       VITE_EVM_VAULT_ADDRESS: ${{ vars.VITE_EVM_VAULT_ADDRESS }}
@@ -76,4 +76,4 @@ jobs:
         run: >-
           curl --fail --silent --show-error
           --retry 5 --retry-delay 5 --retry-all-errors
-          https://lucky.luckycommons.workers.dev/api/health
+          https://luckycommons.luckycommons.workers.dev/api/health

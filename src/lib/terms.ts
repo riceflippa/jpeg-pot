@@ -1,7 +1,7 @@
 import { keccak256, stringToHex } from "viem";
 
 export const TERMS_VERSION = 1;
-export const DEFAULT_TERMS_URI = "https://lucky.luckycommons.workers.dev/terms/v1";
+export const DEFAULT_TERMS_URI = "https://luckycommons.luckycommons.workers.dev/terms/v1";
 export const TERMS_TITLE = "Your NFT enters. Your rights stay explicit.";
 export const TERMS_LEDE = "An NFT may enter Lucky Commons as a pool position without being offered for commercial use. Licensing is optional and only applies when the depositor affirmatively attests they hold the necessary rights and the collection license is independently reviewed.";
 export const TERMS_SECTIONS = [

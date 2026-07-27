@@ -47,4 +47,4 @@ export const LICENSE_TERMS_TEXT = [
 ].join("\n\n");
 
 export const LICENSE_TERMS_HASH = keccak256(stringToHex(LICENSE_TERMS_TEXT));
-export const DEFAULT_LICENSE_TERMS_URI = "https://lucky.luckycommons.workers.dev/license/v1";
+export const DEFAULT_LICENSE_TERMS_URI = "https://luckycommons.luckycommons.workers.dev/license/v1";

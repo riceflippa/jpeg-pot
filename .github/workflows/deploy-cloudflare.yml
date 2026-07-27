@@ -1,0 +1,79 @@
+name: Cloudflare Production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Verify and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://jpeg-pot.jpegpot.workers.dev
+    env:
+      VITE_EVM_CHAIN: ${{ vars.VITE_EVM_CHAIN || 'polygonAmoy' }}
+      VITE_EVM_VAULT_ADDRESS: ${{ vars.VITE_EVM_VAULT_ADDRESS }}
+      VITE_EVM_LICENSING_ADDRESS: ${{ vars.VITE_EVM_LICENSING_ADDRESS }}
+      VITE_EVM_LICENSING_POLYGON_AMOY: ${{ vars.VITE_EVM_LICENSING_POLYGON_AMOY }}
+      VITE_EVM_LICENSING_POLYGON: ${{ vars.VITE_EVM_LICENSING_POLYGON }}
+      VITE_EVM_LICENSING_ETHEREUM: ${{ vars.VITE_EVM_LICENSING_ETHEREUM }}
+      VITE_EVM_LICENSING_BASE: ${{ vars.VITE_EVM_LICENSING_BASE }}
+      VITE_EVM_LICENSING_ARBITRUM: ${{ vars.VITE_EVM_LICENSING_ARBITRUM }}
+      VITE_SOLANA_CLUSTER: ${{ vars.VITE_SOLANA_CLUSTER || 'devnet' }}
+      VITE_SOLANA_PROGRAM_ID: ${{ vars.VITE_SOLANA_PROGRAM_ID }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Compile EVM contracts
+        run: npm run compile
+
+      - name: Run contract and web tests
+        run: npm test
+
+      - name: Run Solana host tests
+        env:
+          NO_DNA: "1"
+        run: cargo test --workspace --locked
+
+      - name: Lint source
+        run: npm run lint
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Deploy Cloudflare Worker
+        id: cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Verify production health
+        run: >-
+          curl --fail --silent --show-error
+          --retry 5 --retry-delay 5 --retry-all-errors
+          https://jpeg-pot.jpegpot.workers.dev/api/health

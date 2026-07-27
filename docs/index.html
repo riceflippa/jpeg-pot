@@ -14,7 +14,7 @@
   <body>
     <header>
       <a class="brand" href="#top"><span>JP</span><strong>JPEG POT</strong></a>
-      <nav><a href="#idea">Concept</a><a href="#architecture">Architecture</a><a href="#status">Status</a></nav>
+      <nav><a href="#idea">Concept</a><a href="#architecture">Architecture</a><a href="#operations">Operations</a><a href="#status">Status</a></nav>
       <a class="header-link" href="https://jpeg-pot.jpegpot.workers.dev">OPEN APP ↗</a>
     </header>
 
@@ -67,6 +67,7 @@
           <article><span>PROTOCOL TOKEN</span><h3>Fixed-supply $POT</h3><p>Burnable ERC-20 with permit support, intended for transparent rewards and buy-and-burn allocations.</p><code>JpegPotToken.sol</code></article>
           <article><span>SOLANA PROGRAM</span><h3>Anchor implementation</h3><p>Implements pool positions, rights state, license packages, native settlement, and withdrawal constraints.</p><code>programs/jpeg-pot-solana</code></article>
           <article><span>EDGE DELIVERY</span><h3>Cloudflare Worker</h3><p>Serves the public preview and a minimal health route. It stores no payment processor or deployer key.</p><code>worker/index.ts</code></article>
+          <article><span>DELIVERY PIPELINE</span><h3>GitHub Actions</h3><p>Compiles, tests, lints, builds, deploys to Cloudflare, and verifies the production health route on every main-branch release.</p><code>.github/workflows</code></article>
         </div>
       </section>
 
@@ -80,6 +81,18 @@
         </div>
       </section>
 
+      <section class="operations" id="operations">
+        <div class="section-heading"><p class="eyebrow">OPERATE THE PROJECT</p><h2>The repository is the runbook.</h2></div>
+        <div class="docs-grid">
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/OPERATOR_GUIDE.md"><span>01</span><h3>Operator guide</h3><p>Workstation setup, configuration, chain deployments, authorities, rights review, and production gates.</p></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/ARCHITECTURE.md"><span>02</span><h3>Architecture</h3><p>Components, trust boundaries, custody and payment flows, chain identifiers, and known gaps.</p></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/PROTOCOL.md"><span>03</span><h3>Protocol reference</h3><p>EVM and Solana state, licensing receipts, revenue accounting, and the current $POT model.</p></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/CLOUDFLARE.md"><span>04</span><h3>Cloudflare CI/CD</h3><p>GitHub secrets, public build variables, automatic deployment, health verification, and rollback.</p></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/RUNBOOK.md"><span>05</span><h3>Runbook</h3><p>Release checks, severity levels, web and chain incidents, credential rotation, and recovery evidence.</p></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/SECURITY.md"><span>06</span><h3>Security policy</h3><p>Private reporting, secret-handling rules, existing controls, and the gates blocking production use.</p></a>
+        </div>
+      </section>
+
       <section class="status" id="status">
         <div class="section-heading"><p class="eyebrow">CURRENT STATE</p><h2>A working product preview—not a live prize game.</h2></div>
         <div class="status-grid">
@@ -90,6 +103,6 @@
       </section>
     </main>
 
-    <footer><div class="brand"><span>JP</span><strong>JPEG POT</strong></div><p>PROJECT OVERVIEW · TESTNET PREVIEW</p><div><a href="https://jpeg-pot.jpegpot.workers.dev">Live preview</a><a href="https://github.com/riceflippa/jpeg-pot">Repository</a><a href="https://x.com/StarPlatinum_/status/2080995127519060210">Original prompt</a></div></footer>
+    <footer><div class="brand"><span>JP</span><strong>JPEG POT</strong></div><p>PROJECT OVERVIEW · TESTNET PREVIEW</p><div><a href="https://jpeg-pot.jpegpot.workers.dev">Live preview</a><a href="https://github.com/riceflippa/jpeg-pot">Repository</a><a href="https://github.com/riceflippa/jpeg-pot/tree/main/docs">Operator docs</a><a href="https://x.com/StarPlatinum_/status/2080995127519060210">Original prompt</a></div></footer>
   </body>
 </html>

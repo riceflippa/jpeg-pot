@@ -3,106 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#dfff36" />
-    <meta name="description" content="Technical overview of JPEG Pot: a multichain NFT prize-pool concept with a rights-cleared media licensing marketplace." />
+    <meta name="theme-color" content="#f3f0e9" />
+    <meta name="description" content="JPEG Pot is a multichain NFT prize-pool prototype funded by rights-cleared media licensing." />
     <title>JPEG Pot — Project overview</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&amp;family=Inter+Tight:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&amp;family=Inter+Tight:wght@500;600;700;800&amp;display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
       <a class="brand" href="#top"><span>JP</span><strong>JPEG POT</strong></a>
-      <nav><a href="#idea">Concept</a><a href="#architecture">Architecture</a><a href="#operations">Operations</a><a href="#status">Status</a></nav>
+      <nav><a href="#product">Product</a><a href="#build">Build</a><a href="#docs">Docs</a></nav>
       <a class="header-link" href="https://jpeg-pot.jpegpot.workers.dev">OPEN APP ↗</a>
     </header>
 
     <main id="top">
       <section class="hero">
         <div>
-          <p class="eyebrow">PROJECT + TECHNICAL OVERVIEW</p>
-          <h1>One more chance for an old NFT.</h1>
-          <p class="lede">JPEG Pot combines a multichain NFT prize-pool concept with a searchable marketplace for rights-cleared NFT media. Holders supply pool positions. Media buyers supply external revenue.</p>
-          <div class="hero-actions"><a class="primary" href="https://jpeg-pot.jpegpot.workers.dev">VIEW LIVE PREVIEW ↗</a><a class="secondary" href="https://github.com/riceflippa/jpeg-pot">BROWSE SOURCE</a></div>
+          <p class="eyebrow">MULTICHAIN PROTOCOL PROTOTYPE</p>
+          <h1>NFTs enter.<br />Licensing funds the pot.</h1>
+          <p class="lede">JPEG Pot gives idle NFTs prize eligibility. Rights-cleared media can earn onchain licensing revenue without selling the underlying NFT.</p>
+          <div class="hero-actions"><a class="primary" href="https://jpeg-pot.jpegpot.workers.dev">VIEW PRODUCT</a><a class="secondary" href="https://github.com/riceflippa/jpeg-pot">SOURCE CODE</a></div>
         </div>
         <aside>
-          <div class="status-line"><span>● PUBLIC PREVIEW</span><b>TESTNET</b></div>
-          <strong class="pot-word">$POT</strong>
-          <p>NFT POSITIONS IN<br />LICENSE REVENUE IN<br />REWARDS OUT</p>
-          <small>No active prize or production contract deployment.</small>
+          <div><span>STATUS</span><strong>Public testnet preview</strong></div>
+          <div><span>SETTLEMENT</span><strong>Native crypto only</strong></div>
+          <div><span>CUSTODY</span><strong>Chain-local vaults</strong></div>
+          <p>No active prize or production deployment.</p>
         </aside>
       </section>
 
-      <section class="facts" aria-label="Project facts">
-        <div><span>PAYMENTS</span><strong>Onchain only</strong></div>
-        <div><span>NETWORK MODEL</span><strong>Chain-local vaults</strong></div>
-        <div><span>NFT RIGHTS</span><strong>Optional + explicit</strong></div>
-        <div><span>CUSTODY</span><strong>No bridge required</strong></div>
-      </section>
-
-      <section class="idea" id="idea">
-        <div class="section-heading"><p class="eyebrow">THE PRODUCT LOOP</p><h2>Two user journeys. One economic engine.</h2></div>
+      <section class="product" id="product">
+        <div class="section-heading"><p class="eyebrow">THE PRODUCT</p><h2>One loop. Two users.</h2></div>
         <div class="loop">
-          <article><span>01</span><strong>Deposit an NFT</strong><p>A supported NFT enters its source chain’s vault and becomes a pool position.</p></article>
-          <b>→</b>
-          <article><span>02</span><strong>Verify media rights</strong><p>Optional rights attestations determine whether associated media may be licensed.</p></article>
-          <b>→</b>
-          <article><span>03</span><strong>License with crypto</strong><p>Buyers search reviewed media and purchase a defined usage license onchain.</p></article>
-          <b>→</b>
-          <article><span>04</span><strong>Allocate revenue</strong><p>Revenue can support prizes, member drops, reserves, or $POT buy-and-burn.</p></article>
+          <article><span>01</span><h3>Holders deposit</h3><p>An NFT becomes a pool position on its source chain.</p></article>
+          <article><span>02</span><h3>Buyers license</h3><p>Verified media is licensed with native crypto.</p></article>
+          <article><span>03</span><h3>The pool earns</h3><p>Revenue can fund prizes, drops, reserves, or $POT buy-and-burn.</p></article>
         </div>
-        <div class="audiences">
-          <article><p class="eyebrow">FOR NFT HOLDERS</p><h3>Put the bag in the pot.</h3><ul><li>ERC-721, ERC-1155, and planned Solana asset support</li><li>Rights attestation remains optional</li><li>Withdraw after cooldown and active-license constraints</li><li>Mobile wallet connection; no platform-held user keys</li></ul></article>
-          <article><p class="eyebrow">FOR MEDIA BUYERS</p><h3>Search, inspect, license.</h3><ul><li>Search and filter by category, chain, and license</li><li>Review permitted uses and rights provenance</li><li>Pay in the selected network’s native asset</li><li>Keep the manifest, terms hash, and onchain receipt</li></ul></article>
-        </div>
+        <p class="note"><strong>Rights stay explicit.</strong> Pool membership does not require commercial media rights.</p>
       </section>
 
-      <section class="architecture" id="architecture">
-        <div class="section-heading"><p class="eyebrow">SYSTEM MAP</p><h2>Multichain at the edges. Explicit at every boundary.</h2></div>
+      <section class="build" id="build">
+        <div class="section-heading"><p class="eyebrow">THE BUILD</p><h2>Multichain at the edges. Simple at the center.</h2></div>
         <div class="system-grid">
-          <article><span>WEB CLIENT</span><h3>React + TypeScript</h3><p>Vite interface with Wagmi for EVM wallets and Solana React Hooks for wallet-standard connections.</p><code>src/App.tsx</code></article>
-          <article><span>EVM VAULT</span><h3>NFT custody</h3><p>Tracks ERC-721 and ERC-1155 positions, cooldowns, rights attestations, license locks, and native revenue.</p><code>JpegPotVault.sol</code></article>
-          <article><span>EVM LICENSING</span><h3>Usage receipts</h3><p>Sells configured media packages in native crypto, records purchases, and routes revenue into the vault.</p><code>JpegPotLicensing.sol</code></article>
-          <article><span>PROTOCOL TOKEN</span><h3>Fixed-supply $POT</h3><p>Burnable ERC-20 with permit support, intended for transparent rewards and buy-and-burn allocations.</p><code>JpegPotToken.sol</code></article>
-          <article><span>SOLANA PROGRAM</span><h3>Anchor implementation</h3><p>Implements pool positions, rights state, license packages, native settlement, and withdrawal constraints.</p><code>programs/jpeg-pot-solana</code></article>
-          <article><span>EDGE DELIVERY</span><h3>Cloudflare Worker</h3><p>Serves the public preview and a minimal health route. It stores no payment processor or deployer key.</p><code>worker/index.ts</code></article>
-          <article><span>DELIVERY PIPELINE</span><h3>GitHub Actions</h3><p>Compiles, tests, lints, builds, deploys to Cloudflare, and verifies the production health route on every main-branch release.</p><code>.github/workflows</code></article>
+          <article><span>WEB APP</span><h3>React + TypeScript</h3><p>Wallet connection, NFT entry, media search, and onchain checkout.</p><code>src/</code></article>
+          <article><span>EVM</span><h3>Solidity contracts</h3><p>ERC-721/1155 custody, licenses, receipts, revenue, and $POT.</p><code>contracts/</code></article>
+          <article><span>SOLANA</span><h3>Anchor program</h3><p>Pool positions, rights state, native settlement, and withdrawals.</p><code>programs/</code></article>
+          <article><span>DELIVERY</span><h3>Cloudflare + GitHub</h3><p>Every main-branch release is tested, built, deployed, and health checked.</p><code>.github/workflows/</code></article>
         </div>
       </section>
 
-      <section class="security">
-        <div><p class="eyebrow">SECURITY MODEL</p><h2>Wallets sign. The app never asks for secrets.</h2></div>
-        <div class="security-list">
-          <p><span>01</span>User keys remain inside connected wallets.</p>
-          <p><span>02</span>Solana purchases are prepared and simulated before approval.</p>
-          <p><span>03</span>NFT ownership does not automatically imply copyright ownership.</p>
-          <p><span>04</span>Production deployment requires contract audits and legal review.</p>
+      <section class="docs" id="docs">
+        <div class="section-heading"><p class="eyebrow">DOCUMENTATION</p><h2>From concept to operations.</h2></div>
+        <div class="docs-list">
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/OPERATOR_GUIDE.md"><strong>Operator guide</strong><span>Setup, configuration, and launch gates</span><b>↗</b></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/ARCHITECTURE.md"><strong>Architecture</strong><span>Components, trust boundaries, and flows</span><b>↗</b></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/PROTOCOL.md"><strong>Protocol</strong><span>EVM, Solana, receipts, and $POT</span><b>↗</b></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/RUNBOOK.md"><strong>Runbook</strong><span>Release, incidents, and recovery</span><b>↗</b></a>
+          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/SECURITY.md"><strong>Security</strong><span>Controls, reporting, and production gates</span><b>↗</b></a>
         </div>
       </section>
 
-      <section class="operations" id="operations">
-        <div class="section-heading"><p class="eyebrow">OPERATE THE PROJECT</p><h2>The repository is the runbook.</h2></div>
-        <div class="docs-grid">
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/OPERATOR_GUIDE.md"><span>01</span><h3>Operator guide</h3><p>Workstation setup, configuration, chain deployments, authorities, rights review, and production gates.</p></a>
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/ARCHITECTURE.md"><span>02</span><h3>Architecture</h3><p>Components, trust boundaries, custody and payment flows, chain identifiers, and known gaps.</p></a>
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/PROTOCOL.md"><span>03</span><h3>Protocol reference</h3><p>EVM and Solana state, licensing receipts, revenue accounting, and the current $POT model.</p></a>
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/CLOUDFLARE.md"><span>04</span><h3>Cloudflare CI/CD</h3><p>GitHub secrets, public build variables, automatic deployment, health verification, and rollback.</p></a>
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/docs/RUNBOOK.md"><span>05</span><h3>Runbook</h3><p>Release checks, severity levels, web and chain incidents, credential rotation, and recovery evidence.</p></a>
-          <a href="https://github.com/riceflippa/jpeg-pot/blob/main/SECURITY.md"><span>06</span><h3>Security policy</h3><p>Private reporting, secret-handling rules, existing controls, and the gates blocking production use.</p></a>
-        </div>
-      </section>
-
-      <section class="status" id="status">
-        <div class="section-heading"><p class="eyebrow">CURRENT STATE</p><h2>A working product preview—not a live prize game.</h2></div>
-        <div class="status-grid">
-          <article class="done"><span>READY</span><h3>Implemented</h3><p>Responsive marketplace, wallet connection surfaces, EVM contracts, Anchor program, terms hashing, license receipts, revenue allocation, and automated tests.</p></article>
-          <article class="pending"><span>BEFORE LAUNCH</span><h3>Required</h3><p>Audits, production deployments, verified NFT inventory, enforceable prize selection, funded prize policy, rights operations, monitoring, and jurisdiction-specific legal review.</p></article>
-        </div>
-        <div class="checks"><strong>VERIFIED LOCALLY</strong><span>9 EVM contract tests</span><span>6 web tests</span><span>5 Solana host tests</span><span>TypeScript + production build</span></div>
+      <section class="status">
+        <div><p class="eyebrow">CURRENT STATE</p><h2>Working preview.<br />Not a live prize game.</h2></div>
+        <div class="status-copy"><p><strong>Implemented</strong> Web experience, EVM contracts, Solana program, terms hashing, tests, and automatic deployment.</p><p><strong>Before launch</strong> Audits, production deployments, verified inventory, funded draw policy, monitoring, and legal review.</p></div>
       </section>
     </main>
 
-    <footer><div class="brand"><span>JP</span><strong>JPEG POT</strong></div><p>PROJECT OVERVIEW · TESTNET PREVIEW</p><div><a href="https://jpeg-pot.jpegpot.workers.dev">Live preview</a><a href="https://github.com/riceflippa/jpeg-pot">Repository</a><a href="https://github.com/riceflippa/jpeg-pot/tree/main/docs">Operator docs</a><a href="https://x.com/StarPlatinum_/status/2080995127519060210">Original prompt</a></div></footer>
+    <footer><div class="brand"><span>JP</span><strong>JPEG POT</strong></div><p>PUBLIC TESTNET PREVIEW</p><div><a href="https://jpeg-pot.jpegpot.workers.dev">Product</a><a href="https://github.com/riceflippa/jpeg-pot">Repository</a><a href="https://x.com/StarPlatinum_/status/2080995127519060210">Original idea</a></div></footer>
   </body>
 </html>

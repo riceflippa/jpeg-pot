@@ -253,7 +253,7 @@ Before a release:
 After a release:
 
 - Confirm the GitHub workflow succeeded.
-- Check `https://luckycommons.jpegpot.workers.dev/api/health`.
+- Check `https://lucky.luckycommons.workers.dev/api/health`.
 - Exercise the home page on desktop and mobile.
 - Confirm wallet prompts target the expected chain and contract.
 - Record the Git commit and Cloudflare deployment version.

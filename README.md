@@ -1,7 +1,7 @@
 # Lucky Commons
 
 [![Cloudflare Production](https://github.com/riceflippa/luckycommons/actions/workflows/deploy-cloudflare.yml/badge.svg)](https://github.com/riceflippa/luckycommons/actions/workflows/deploy-cloudflare.yml)
-[![Live preview](https://img.shields.io/badge/live-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://luckycommons.jpegpot.workers.dev)
+[![Live preview](https://img.shields.io/badge/live-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://lucky.luckycommons.workers.dev)
 [![Project overview](https://img.shields.io/badge/docs-GitHub%20Pages-222?logo=github)](https://riceflippa.github.io/luckycommons/)
 
 Lucky Commons is a multichain prize-pool concept for idle NFTs. A holder deposits an
@@ -14,7 +14,7 @@ NFT ownership alone does not prove copyright ownership. Pool membership and
 media licensing are deliberately separate: assets without reviewed licensing
 authority are never sold as media packages.
 
-- Product preview: [luckycommons.jpegpot.workers.dev](https://luckycommons.jpegpot.workers.dev)
+- Product preview: [lucky.luckycommons.workers.dev](https://lucky.luckycommons.workers.dev)
 - Technical showcase: [riceflippa.github.io/luckycommons](https://riceflippa.github.io/luckycommons/)
 - Production workflow: [Cloudflare Production](https://github.com/riceflippa/luckycommons/actions/workflows/deploy-cloudflare.yml)
 

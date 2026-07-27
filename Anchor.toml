@@ -1,0 +1,19 @@
+[toolchain]
+anchor_version = "0.32.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+jpeg_pot_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
+
+[programs.devnet]
+jpeg_pot_solana = "EWKyg1oNdNTNYoXegBwRG2ZHm5GqePQUjgFk7JRYMqtL"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test --workspace"

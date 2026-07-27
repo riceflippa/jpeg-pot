@@ -1,0 +1,61 @@
+{
+  "name": "jpeg-pot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "test": "npm run test:contracts && npm run test:web",
+    "test:contracts": "node --test test/*.test.ts",
+    "test:web": "vitest run",
+    "compile": "hardhat compile",
+    "deploy:web": "npm run build && wrangler deploy",
+    "deploy:evm:amoy": "hardhat run scripts/deploy-evm.ts --network polygonAmoy",
+    "deploy:evm:polygon": "hardhat run scripts/deploy-evm.ts --network polygon",
+    "deploy:evm:ethereum": "hardhat run scripts/deploy-evm.ts --network ethereum",
+    "deploy:evm:base": "hardhat run scripts/deploy-evm.ts --network base",
+    "deploy:evm:arbitrum": "hardhat run scripts/deploy-evm.ts --network arbitrum"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1",
+    "@solana/client": "^1.7.0",
+    "@solana/kit": "^5.5.1",
+    "@solana/react-hooks": "^1.4.1",
+    "@solana/sysvars": "^4.0.0",
+    "@tanstack/react-query": "^5.101.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "viem": "^2.55.8",
+    "wagmi": "^3.7.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@nomicfoundation/hardhat-ignition": "^3.1.8",
+    "@nomicfoundation/hardhat-ignition-viem": "^3.1.6",
+    "@nomicfoundation/hardhat-keystore": "^3.0.12",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.11",
+    "@nomicfoundation/hardhat-node-test-runner": "^3.0.17",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.7",
+    "@nomicfoundation/hardhat-verify": "^3.0.21",
+    "@nomicfoundation/hardhat-viem": "^3.0.9",
+    "@nomicfoundation/hardhat-viem-assertions": "^3.1.2",
+    "@nomicfoundation/ignition-core": "^3.1.8",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "eslint": "^10.8.0",
+    "hardhat": "^3.11.1",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.114.0"
+  }
+}

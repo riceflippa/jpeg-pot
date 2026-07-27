@@ -1,0 +1,17 @@
+node_modules/
+dist/
+artifacts/
+cache/
+coverage/
+target/
+.anchor/
+.wrangler/
+.env
+.env.*
+!.env.example
+*-keypair.json
+id.json
+*.pem
+*.key
+*.log
+.DS_Store

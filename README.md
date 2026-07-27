@@ -1,37 +1,47 @@
 # JPEG Pot
 
-JPEG Pot is a multichain prize-pool concept for idle NFTs: lock an old NFT in a
-chain-local vault, receive a pool position, and give the asset one more chance
-to create value. The NFT is not sold to fund the pot and can be withdrawn after
-the cooldown, subject to any active license.
+[![Cloudflare Production](https://github.com/riceflippa/jpeg-pot/actions/workflows/deploy-cloudflare.yml/badge.svg)](https://github.com/riceflippa/jpeg-pot/actions/workflows/deploy-cloudflare.yml)
+[![Live preview](https://img.shields.io/badge/live-Cloudflare-F38020?logo=cloudflare&logoColor=white)](https://jpeg-pot.jpegpot.workers.dev)
+[![Project overview](https://img.shields.io/badge/docs-GitHub%20Pages-222?logo=github)](https://riceflippa.github.io/jpeg-pot/)
 
-The product has two connected layers:
+JPEG Pot is a multichain prize-pool concept for idle NFTs. A holder deposits an
+NFT into a chain-local vault and receives a pool position. If the holder can
+document commercial media rights, the position may also enter a reviewed media
+licensing catalog. Native-crypto license revenue can support prizes, member
+distributions, reserves, or verifiable `$POT` buy-and-burn activity.
 
-1. **The pool:** supported NFTs can become membership positions under a public
-   eligibility and prize policy.
-2. **The revenue engine:** depositors who actually control commercial media
-   rights can opt into a searchable media marketplace with category, chain, and
-   license filters. Native-crypto license revenue can be allocated to prizes,
-   member distributions, reserves, or verifiable `$POT` buy-and-burn activity.
+NFT ownership alone does not prove copyright ownership. Pool membership and
+media licensing are deliberately separate: assets without reviewed licensing
+authority are never sold as media packages.
 
-Rights are optional for pool membership. An NFT with no verified commercial
-rights is never included in a paid media package.
+- Product preview: [jpeg-pot.jpegpot.workers.dev](https://jpeg-pot.jpegpot.workers.dev)
+- Technical showcase: [riceflippa.github.io/jpeg-pot](https://riceflippa.github.io/jpeg-pot/)
+- Production workflow: [Cloudflare Production](https://github.com/riceflippa/jpeg-pot/actions/workflows/deploy-cloudflare.yml)
 
 ## Product status
 
 The public website is a **testnet product preview**. There is no active prize,
-live draw, or deployed production vault. Its gallery contains generic CSS
-interface samples—not real listings—and checkout is intentionally disabled.
+trustless random draw, production contract deployment, or verified live media
+inventory. Checkout remains disabled until contract addresses and reviewed
+packages are configured.
 
-Before a production launch, the project needs audited contracts, a public and
-enforceable prize policy, funded prize sources, rights-review operations, and
-jurisdiction-specific legal review.
+Before production, the project requires independent contract audits, a funded
+and enforceable prize policy, rights-review operations, production monitoring,
+multisig authorities, and jurisdiction-specific legal review.
 
-Preview: [jpeg-pot.jpegpot.workers.dev](https://jpeg-pot.jpegpot.workers.dev)
+## Documentation
 
-Project overview: [riceflippa.github.io/jpeg-pot](https://riceflippa.github.io/jpeg-pot/)
+| Document | Purpose |
+| --- | --- |
+| [Operator guide](docs/OPERATOR_GUIDE.md) | Local setup, configuration, deployments, authority management, and operational gates |
+| [Architecture](docs/ARCHITECTURE.md) | Components, trust boundaries, data flows, repository map, and chain model |
+| [Protocol reference](docs/PROTOCOL.md) | EVM and Solana state transitions, licensing, revenue, receipts, and `$POT` behavior |
+| [Cloudflare deployment](docs/CLOUDFLARE.md) | GitHub Actions bootstrap, repository secrets and variables, verification, and rollback |
+| [Operations runbook](docs/RUNBOOK.md) | Routine checks, release procedure, incident response, and recovery |
+| [Security policy](SECURITY.md) | Secret handling, vulnerability reporting, and production limitations |
+| [Contributing](CONTRIBUTING.md) | Branch, validation, and pull-request expectations |
 
-## How the protocol is intended to work
+## Protocol loop
 
 ```text
 NFT deposit -> pool position -> published prize eligibility
@@ -45,21 +55,26 @@ NFT deposit -> pool position -> published prize eligibility
 
 - **EVM:** ERC-721 and ERC-1155 custody on Ethereum, Polygon, Base, and
   Arbitrum; native-asset license settlement.
-- **Solana:** planned adapters for Token Metadata NFTs, programmable NFTs,
-  Token-2022 NFTs, and Metaplex Core assets; native SOL settlement.
-- **No bridge custody:** each NFT remains in a vault on its source chain.
-- **Onchain receipts:** a license purchase identifies its package, terms hash,
-  beneficiary, payment reference, and validity period.
+- **Solana:** Anchor implementation for Token Metadata and Metaplex Core
+  assets; native SOL settlement.
+- **No NFT bridge custody:** every NFT remains in a vault on its source chain.
+- **Onchain receipts:** every purchase records its package, beneficiary,
+  amount, payment reference, and validity period.
 
-The current EVM vault can receive revenue and lets its owner allocate funds to a
-winner, member distributor, reserve, or buy-and-burn executor. It does **not**
-yet implement a trustless random draw. That gap must be closed before the prize
-language can describe a live protocol.
+The current `$POT` contract is a fixed-supply EVM token. Deployments on
+different EVM chains are independent, and the Solana program does not yet mint
+an SPL `$POT`. The repository therefore does **not** claim a synchronized
+cross-chain token supply. See [Protocol reference](docs/PROTOCOL.md#pot-token-model).
 
-## Development
+## Quick start
+
+Requirements: Git, Node.js 22 or newer, npm, Rust, Solana CLI, and Anchor 0.32.1
+for Solana work.
 
 ```bash
-npm install
+git clone https://github.com/riceflippa/jpeg-pot.git
+cd jpeg-pot
+npm ci
 npm run compile
 npm test
 npm run lint
@@ -67,39 +82,46 @@ npm run build
 NO_DNA=1 cargo test --workspace
 ```
 
-Copy `.env.example` to `.env.local` and add only public contract addresses.
-Never put seed phrases, private keys, or Solana keypair files in the repository.
-Local Hardhat accounts are deterministic test identities and must never be used
-on a public network.
+Start the local web client:
 
-## EVM deployment
+```bash
+cp .env.example .env.local
+npm run dev
+```
 
-The deployment script creates the token, vault, and licensing contracts, then
-authorizes the licensing contract in the vault. It creates no catalog packages;
-those must be added only after ownership and rights review.
+Only public chain identifiers and deployed contract addresses belong in the
+frontend environment. Never place deployer keys, seed phrases, Solana keypair
+files, or provider credentials in the repository.
 
-Store the operator-owned deployer key in Hardhat's encrypted keystore, outside
-the web application and repository:
+## Automated Cloudflare deployment
+
+Pushes to `main` run the complete verification suite and then deploy the
+Cloudflare Worker defined by `wrangler.jsonc`. The workflow requires two GitHub
+Actions secrets:
+
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_API_TOKEN`
+
+Frontend contract addresses are non-secret GitHub Actions variables. Complete
+bootstrap and rollback instructions are in [Cloudflare deployment](docs/CLOUDFLARE.md).
+
+## EVM testnet deployment
+
+The deployment script creates the `$POT` token, vault, and licensing contracts,
+then authorizes the licensing contract in the vault. It creates no catalog
+packages; packages require ownership and rights review.
 
 ```bash
 npx hardhat keystore set EVM_DEPLOYER_PRIVATE_KEY
 npm run deploy:evm:amoy
 ```
 
-Mainnet scripts exist for Ethereum, Polygon, Base, and Arbitrum, but should not
-be used before audit, legal review, and an explicit deployment review.
+Mainnet scripts exist for Ethereum, Polygon, Base, and Arbitrum, but must not be
+used before audit, legal, authority, and deployment reviews.
 
-## Solana deployment
+## License and rights model
 
-The client prepares and simulates a purchase, displays the program, amount, fee
-payer, and cluster, and only then asks a connected mobile wallet to sign.
-Program and upgrade authorities remain operator-controlled and outside the
-repository. A clean SBF build is required before devnet deployment; passing host
-tests alone is insufficient.
-
-## Rights and licenses
-
-Token ownership alone does not prove copyright ownership or licensing
-authority. Every licensable position needs a documented rights source, an
-affirmative depositor attestation, a review, and an accepted-terms hash. Buyers
-should retain the package manifest, terms, and onchain receipt.
+Every licensable position needs a documented rights source, affirmative
+depositor attestation, operator review, immutable package manifest, and accepted
+terms hash. Buyers should retain the package manifest, license terms, and
+onchain receipt. See [Protocol reference](docs/PROTOCOL.md#rights-and-licenses).
